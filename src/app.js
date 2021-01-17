@@ -10,7 +10,21 @@ app.use(express.json());
 
 app.post('/readers', readerControllers.create);
 
+app.get('/readers', readerControllers.list);
+
+app.get('/readers/:readerId', readerControllers.getReaderById);
+
+app.patch('/readers/:id', readerControllers.update);
+
+app.delete('/readers/:readerId', readerControllers.deleteReader);
+
 
 app.post('/books', bookControllers.create);
+
+app.get('/books', bookControllers.list);
+
+app.get('/books/:title', bookControllers.getByTitle);
+
+app.get('/books/:ISBN', bookControllers.getByISBN);
 
 module.exports = app;
