@@ -23,8 +23,8 @@ app.post('/books', bookControllers.create);
 
 app.get('/books', bookControllers.list);
 
-app.get('/books/:title', bookControllers.getByTitle);
+app.get('/books/:id', bookControllers.getBookById);
 
-app.get('/books/:ISBN', bookControllers.getByISBN);
+
 
 module.exports = app;

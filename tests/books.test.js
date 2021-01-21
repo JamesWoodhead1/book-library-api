@@ -66,35 +66,11 @@ describe('/books', () => {
                 }).catch(error => done(error));
             });
         });
-        describe('GET /books/:title', () => {
+        describe('GET /books/:id', () => {
             it('gets a book record by its title', (done) => {
                 const book = books[0];
                 request(app)
-                    .get(`/books/${book.title}`)
-                    .then((res) => {
-                        expect(res.status).to.equal(200);
-                        expect(res.body.title).to.equal(book.title);
-                        expect(res.body.author).to.equal(book.author);
-                        expect(res.body.genre).to.equal(book.genre);
-                        expect(res.body.ISBN).to.equal(book.ISBN);
-                        done();
-                    }).catch(error => done(error));
-            });
-            it('returns a 404 if the book does not exist', (done) => {
-                request(app)
-                    .get('/books/noBookHere')
-                    .then((res) => {
-                        expect(res.status).to.equal(404);
-                        expect(res.body.error).to.equal('The book does not exist.');
-                        done();
-                    }).catch(error => done(error));
-            });
-        });
-        describe('GET /books/:ISBN', () => {
-            it('gets a book record by ISBN', (done) => {
-                const book = books[0];
-                request(app)
-                    .get(`/books/${book.ISBN}`)
+                    .get(`/books/${book.id}`)
                     .then((res) => {
                         expect(res.status).to.equal(200);
                         expect(res.body.title).to.equal(book.title);
