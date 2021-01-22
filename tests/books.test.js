@@ -67,7 +67,7 @@ describe('/books', () => {
             });
         });
         describe('GET /books/:id', () => {
-            it('gets a book record by its title', (done) => {
+            it('gets a book record by its id', (done) => {
                 const book = books[0];
                 request(app)
                     .get(`/books/${book.id}`)

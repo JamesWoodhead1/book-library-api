@@ -12,7 +12,6 @@ exports.list = (req, res) => {
 
 exports.getBookById = (req, res) => {
     const { id } = req.params;
-    console.log(id);
     Book.findByPk(id).then(book => {
         if(!book) {
             res.status(404).json({ error: 'The book does not exist.' });
