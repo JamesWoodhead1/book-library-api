@@ -25,6 +25,10 @@ app.get('/books', bookControllers.list);
 
 app.get('/books/:id', bookControllers.getBookById);
 
+app.patch('/books/:id', bookControllers.update);
+
+app.delete('/books/:bookId', bookControllers.deleteBook);
+
 
 
 module.exports = app;

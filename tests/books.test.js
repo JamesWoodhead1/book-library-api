@@ -90,5 +90,92 @@ describe('/books', () => {
                     }).catch(error => done(error));
             });
         });
+        describe('PATCH /books/:id', () => {
+            it('updates book title by id', (done) => {
+                const book = books[0];
+                request(app)
+                    .patch(`/books/${book.id}`)
+                    .send({ title: 'The Fifth Elephant' })
+                    .then((res) => {
+                        expect(res.status).to.equal(200);
+                        Book.findByPk(book.id, { raw: true }).then((updatedBook) => {
+                            expect(updatedBook.title).to.equal('The Fifth Elephant')
+                            done();
+                        });
+                    }).catch(error => done(error));
+            });
+            it('updates book author by id', (done) => {
+                const book = books[0];
+                request(app)
+                    .patch(`/books/${book.id}`)
+                    .send({ author: 'Neil Gaiman' })
+                    .then((res) => {
+                        expect(res.status).to.equal(200);
+                        Book.findByPk(book.id, { raw: true }).then((updatedBook) => {
+                            expect(updatedBook.author).to.equal('Neil Gaiman')
+                            done();
+                        });
+                    }).catch(error => done(error));
+            });
+            it('updates book genre by id', (done) => {
+                const book = books[0];
+                request(app)
+                    .patch(`/books/${book.id}`)
+                    .send({ genre: 'Steam Punk' })
+                    .then((res) => {
+                        expect(res.status).to.equal(200);
+                        Book.findByPk(book.id, { raw: true }).then((updatedBook) => {
+                            expect(updatedBook.genre).to.equal('Steam Punk')
+                            done();
+                        });
+                    }).catch(error => done(error));
+            });
+            it('updates book ISBN by id', (done) => {
+                const book = books[0];
+                request(app)
+                    .patch(`/books/${book.id}`)
+                    .send({ ISBN: '2077' })
+                    .then((res) => {
+                        expect(res.status).to.equal(200);
+                        Book.findByPk(book.id, { raw: true }).then((updatedBook) => {
+                            expect(updatedBook.ISBN).to.equal('2077')
+                            done();
+                        });
+                    }).catch(error => done(error));
+            });
+            it('returns a 404 if the book does not exist', (done) => {
+                request(app)
+                    .patch('/books/666')
+                    .send({ name: 'In the footsteps of the Behemoth'})
+                    .then((res) => {
+                        expect(res.status).to.equal(404);
+                        expect(res.body.error).to.equal('The book could not be found.')
+                        done();
+                    }).catch(error => done(error));
+            });
+        });
+        describe('DELETE /books/:bookId', () => {
+            it('deletes a book record by id', (done) => {
+                const book = books[0];
+                request(app)
+                    .delete(`/books/${book.id}`)
+                    .then((res) => {
+                        expect(res.status).to.equal(204);
+                        Book.findByPk(book.id, { raw: true }).then((updatedBook) => {
+                            expect(updatedBook).to.equal(null);
+                            done();
+                        });
+                    }).catch(error => done(error));
+            });
+            it('returns a 404 if the book does not exist', (done) => {
+                request(app)
+                .delete('/books/666')
+                .then((res) => {
+                    expect(res.status).to.equal(404);
+                    expect(res.body.error).to.equal('The book could not be found.')
+                    done();
+                }).catch(error => done(error));
+            });
+        });
     });
 });
